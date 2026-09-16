@@ -59,6 +59,11 @@ def index():
     return send_from_directory(app.static_folder, "index.html")
 
 
+@app.route("/healthz")
+def healthz():
+    return jsonify({"status": "ok"})
+
+
 @app.route("/admin")
 def admin_page():
     return send_from_directory(app.static_folder, "admin.html")
