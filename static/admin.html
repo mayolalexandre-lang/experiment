@@ -1,0 +1,44 @@
+<title>Admin — Export des données</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/static/css/style.css">
+<div class="wrap">
+  <div class="card">
+    <h1>Administration de l'expérience</h1>
+    <p class="lead">Entrez le jeton administrateur (défini via la variable d'environnement <code>ADMIN_TOKEN</code> sur le serveur) pour consulter les participants et exporter les données.</p>
+    <label for="token">Jeton admin</label>
+    <input type="text" id="token" placeholder="ADMIN_TOKEN">
+    <button class="btn" id="load">Charger les participants</button>
+    <a id="exportlink" class="btn secondary" style="text-decoration:none; margin-left:10px;">Exporter en CSV</a>
+    <div class="error" id="err"></div>
+  </div>
+  <div class="card" id="results" style="overflow-x:auto"></div>
+</div>
+<script>
+document.getElementById("load").addEventListener("click", async () => {
+  const token = document.getElementById("token").value.trim();
+  const err = document.getElementById("err");
+  const results = document.getElementById("results");
+  err.textContent = "";
+  document.getElementById("exportlink").href = `/api/admin/export.csv?token=${encodeURIComponent(token)}`;
+  try {
+    const res = await fetch(`/api/admin/participants?token=${encodeURIComponent(token)}`);
+    if (!res.ok) throw new Error("Jeton invalide ou erreur serveur (" + res.status + ")");
+    const data = await res.json();
+    const rows = data.participants;
+    if (!rows.length) { results.innerHTML = "<p>Aucun participant enregistré.</p>"; return; }
+    const cols = ["code", "session_label", "stage", "created_at", "completed_at", "n_correct_tariff", "bonus_eur", "lottery_gain_eur", "base_gain_eur", "rounded_gain_eur"];
+    let html = "<p class='muted'>Ce tableau montre un résumé. Cliquez sur \"Détails\" pour voir toutes les réponses d'un participant (démographie, consommation, choix tarifaires, etc.) sans passer par le CSV.</p>";
+    html += "<table class='hl-table'><thead><tr>" + cols.map(c => `<th>${c}</th>`).join("") + "<th></th></tr></thead><tbody>";
+    rows.forEach((r, i) => {
+      html += "<tr>" + cols.map(c => `<td>${r[c] ?? ""}</td>`).join("") + `<td><button class="btn secondary" style="padding:4px 10px;margin:0" onclick="toggleDetail(${i})">Détails</button></td></tr>`;
+      html += `<tr id="detail-${i}" hidden><td colspan="${cols.length + 1}"><pre style="white-space:pre-wrap;text-align:left;background:#f8f8f8;padding:12px;border-radius:6px;">${JSON.stringify(r, null, 2).replace(/</g, "&lt;")}</pre></td></tr>`;
+    });
+    html += "</tbody></table>";
+    results.innerHTML = html;
+    window.toggleDetail = (i) => { document.getElementById(`detail-${i}`).hidden = !document.getElementById(`detail-${i}`).hidden; };
+  } catch (e) {
+    err.textContent = e.message;
+  }
+});
+</script>

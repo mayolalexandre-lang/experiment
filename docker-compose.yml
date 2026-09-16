@@ -1,0 +1,10 @@
+services:
+  experiment:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:5000:5000"
+    environment:
+      - ADMIN_TOKEN=${ADMIN_TOKEN:-changeme}
+    volumes:
+      - ./data:/app/data

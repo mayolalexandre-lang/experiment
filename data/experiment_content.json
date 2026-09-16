@@ -1,0 +1,452 @@
+{
+  "_source": "Contenu extrait mot pour mot de program.exe (chaînes en clair : qu:/typelist:/linelist:/plist:) et du dossier slides/ (slideXd_temp.htm, slide0008.htm, slide20d_temp.htm, slide25d.htm, images slide0001_image024/025.png, doublechasse.png). La version 'en' est une traduction de travail de ce contenu, non une rétro-traduction validée académiquement. Les phrases signalées 'ajout instructeur' ont été fournies explicitement par l'enseignant (pas dans l'exe).",
+
+  "language_picker": {
+    "fr": {"title": "Choisissez votre langue", "button": "Continuer en français"},
+    "en": {"title": "Choose your language", "button": "Continue in English"}
+  },
+
+  "fr": {
+    "welcome": {
+      "source": "slide25d.htm (bloc Intro, texte exact)",
+      "text": "Nous vous remercions d'avoir bien voulu participer à cette étude. Il s'agit d'une enquête conduite par des chercheurs d'un laboratoire universitaire public (Sorbonne et École d'économie de Paris) dont le thème de recherche est la tarification dans l'eau et l'électricité. N'hésitez pas à faire appel aux assistants présents dans la salle en cas de difficulté de compréhension ou autre au cours de la séance. Merci de ne pas communiquer avec les autres participants dans la salle durant la séance afin d'avoir votre opinion personnelle. Cette séance devrait durer 1h. Vous recevrez votre indemnité pour votre participation à la fin de la séance."
+    },
+
+    "eligibility": {
+      "source": "program.exe, bloc QuestSelectEchant (texte exact)",
+      "questions": [
+        {"key": "locataire_proprietaire", "texte": "Êtes-vous personnellement locataire ou propriétaire de votre logement ?", "options": ["Locataire", "Propriétaire"]},
+        {"key": "appartement_maison", "texte": "Vivez-vous dans une maison individuelle ou un appartement ?", "options": ["Appartement", "Maison individuelle"]}
+      ]
+    },
+
+    "consumption_survey": {
+      "source": "program.exe, bloc ConsoInfo (libellés et variables exacts)",
+      "note": "La formule exacte convertissant ces réponses en litres/kWh est du calcul compilé, non récupérable par extraction de chaînes. L'estimation (voir consumption_logic.py) est une approximation transparente à ajuster.",
+      "eau_questions": [
+        {"key": "nPersons", "texte": "Nombre de personnes dans votre foyer", "type": "int"},
+        {"key": "nU_LVAnc", "texte": "Nombre d'utilisations par semaine d'un lave-vaisselle ancien", "type": "int"},
+        {"key": "nU_LVEco", "texte": "Nombre d'utilisations par semaine d'un lave-vaisselle éco récent", "type": "int"},
+        {"key": "nU_LVMain", "texte": "Nombre de lavages de la vaisselle à la main par semaine", "type": "int"},
+        {"key": "nU_LLAnc", "texte": "Nombre d'utilisations par semaine d'un lave-linge ancien", "type": "int"},
+        {"key": "nU_LLEco", "texte": "Nombre d'utilisations par semaine d'un lave-linge éco récent", "type": "int"},
+        {"key": "nU_ChEauSt", "texte": "Moyenne d'utilisation d'une chasse d'eau standard par jour et par personne", "type": "int"},
+        {"key": "nU_ChEauDo", "texte": "Moyenne d'utilisation d'une double chasse d'eau (photo ci-contre) par jour et par personne", "type": "int", "icon": "doublechasse.png"},
+        {"key": "nU_DoucheSm", "texte": "Moyenne de douches par semaine (pour le foyer)", "type": "int"},
+        {"key": "nU_BainSm", "texte": "Moyenne de bains par semaine (pour le foyer)", "type": "int"},
+        {"key": "surf_jard", "texte": "Surface du jardin (m²)", "type": "int"},
+        {"key": "nArosMois", "texte": "Nombre d'arrosages mensuels du jardin (de mars à octobre)", "type": "int"},
+        {"key": "nLaveVoitAn", "texte": "Nombre de lavages de la voiture par an avec l'eau de la maison", "type": "int"}
+      ],
+      "elec_questions": [
+        {"key": "surface", "texte": "Quelle est la surface du logement (m²) ?", "type": "int"},
+        {"key": "ballon", "texte": "Avez-vous un ballon d'eau chaude électrique ?", "type": "bool"},
+        {"key": "LVPresent", "texte": "Avez-vous un lave-vaisselle ?", "type": "bool"},
+        {"key": "AspPresent", "texte": "Avez-vous un aspirateur ?", "type": "bool"},
+        {"key": "chaufElect", "texte": "Est-ce que votre chauffage est électrique ?", "type": "bool"},
+        {"key": "nLCD", "texte": "Nombre de télévisions LCD", "type": "int"},
+        {"key": "nPlasma", "texte": "Nombre de télévisions plasma", "type": "int"},
+        {"key": "nOrdBureau", "texte": "Nombre d'ordinateurs de bureau", "type": "int"},
+        {"key": "nOrdPort", "texte": "Nombre d'ordinateurs portables", "type": "int"},
+        {"key": "CongelIndep", "texte": "Avez-vous un congélateur indépendant (hors réfrigérateur) ?", "type": "bool"},
+        {"key": "LLPresent", "texte": "Avez-vous un lave-linge ?", "type": "bool"},
+        {"key": "SLPresent", "texte": "Avez-vous un sèche-linge ?", "type": "bool"}
+      ],
+      "estimate_text": {
+        "intro": "À partir des réponses fournies précédemment, voici une estimation de vos différentes consommations annuelles en eau et électricité domestiques :",
+        "eau_annuelle": "Votre consommation d'eau annuelle : de {min} à {max}. La consommation annuelle moyenne est de {avg}.",
+        "elec_annuelle": "Votre consommation d'électricité annuelle : de {min} à {max}. La consommation annuelle moyenne est de {avg}.",
+        "eau_mensuelle": "Votre consommation d'eau mensuelle : de {min} à {max}. La consommation mensuelle moyenne est de {avg}.",
+        "elec_mensuelle": "Votre consommation d'électricité mensuelle : de {min} à {max}. La consommation mensuelle moyenne est de {avg}."
+      }
+    },
+
+    "tariffs": {
+      "electricite": {
+        "unit": "kWh",
+        "label": "Électricité",
+        "icon_variable": "icon_variable_elec.png",
+        "source": "slide1d_temp.htm / slide2d_temp.htm / slide3d_temp.htm (valeurs réelles d'une session passée)",
+        "sans_abonnement": {"part_fixe": 0, "prix": 0.204},
+        "avec_abonnement": {"part_fixe": 96.50, "prix": 0.14},
+        "progressif": {"seuil": 1010, "prix_tranche1": 0.136, "prix_tranche2": 0.339}
+      },
+      "eau": {
+        "unit": "m³",
+        "label": "Eau",
+        "icon_variable": "dollar_goute.gif",
+        "source": "slide4d_temp.htm / slide5d_temp.htm / slide6d_temp.htm (valeurs réelles d'une session passée)",
+        "sans_abonnement": {"part_fixe": 0, "prix": 4.019},
+        "avec_abonnement": {"part_fixe": 22.64, "prix": 3.81},
+        "progressif": {"seuil": 72, "prix_tranche1": 2.679, "prix_tranche2": 6.35}
+      },
+      "comparisons": [
+        ["sans_abonnement", "avec_abonnement"],
+        ["avec_abonnement", "progressif"],
+        ["progressif", "sans_abonnement"]
+      ],
+      "plan_labels": {"sans_abonnement": "Tarif sans abonnement", "avec_abonnement": "Tarif avec abonnement", "progressif": "Tarif progressif"},
+      "ui": {
+        "no_subscription": "Pas d'abonnement annuel.",
+        "annual_subscription": "Abonnement annuel : {amount} €.",
+        "constant_price": "Prix du {unit} constant, quel que soit le volume acheté : {price} €/{unit}.",
+        "progressive_intro": "Pas d'abonnement annuel. Le prix du {unit} varie selon la tranche de consommation :",
+        "tranche1": "1ère tranche — jusqu'à {seuil} {unit} : {prix} €/{unit}",
+        "tranche2": "2ème tranche — au-delà de {seuil} {unit} : {prix} €/{unit}"
+      },
+      "progressive_example": {
+        "source": "program.exe, exemple exact affiché en rappel (bloc Choix)",
+        "electricite": "Un ménage a une consommation annuelle de 4790 kWh. Le tarif progressif est construit de sorte que : 1ère tranche, toute consommation inférieure à 3193 kWh est facturée 0,12 €/kWh ; 2ème tranche, toute consommation supérieure à 3193 kWh est facturée 0,17 €/kWh. La facture de ce ménage sera donc de : 383,16 € (3193 x 0,12) pour les 3193 premiers kWh consommés, 271,49 € (1597 x 0,17) pour les 1597 kWh consommés suivants. Le total sera donc de 654,65 €.",
+        "eau": "Un ménage a une consommation annuelle de 61,469 m³. Le tarif progressif est construit de sorte que : 1ère tranche, toute consommation inférieure à 40,979 m³ est facturée 0,5 €/m³ ; 2ème tranche, toute consommation supérieure à 40,979 m³ est facturée 2 €/m³. La facture de ce ménage sera donc de : 20,48 € (40,979 x 0,5) pour les 40,979 premiers m³ consommés, 40,98 € pour les m³ consommés suivants. Le total sera donc de 61,46 €."
+      },
+      "banner_hypothetical": "Ce choix ne va pas influencer votre gain.",
+      "banner_incentivized": "Attention, les choix que vous ferez vont influencer votre rémunération.",
+      "hypo_intro_title": "Choix hypothétiques",
+      "hypo_intro_body": "Vous allez à présent réaliser différents choix parmi trois types de tarifs pour l'eau et l'électricité. Ces choix ne seront pas pris en compte lors du calcul de vos gains.",
+      "reminder_instructions": "Vous choisissez un tarif entre deux propositions. Le tarif \"sans abonnement\" facture chaque unité consommée au même prix. Le tarif \"avec abonnement\" ajoute un montant fixe annuel à un prix par unité plus bas. Le tarif \"progressif\" ne facture pas d'abonnement mais applique un prix plus élevé au-delà d'un certain seuil de consommation (2ème tranche).",
+      "reminder_label_instructions": "Revoir les instructions",
+      "reminder_label_progressive": "Revoir l'exemple d'un tarif progressif",
+      "reminder_label_consumption": "Revoir mes consommations moyennes",
+      "savings_reminder_label": "Rappel : ce que vous pourriez économiser"
+    },
+
+    "behavior_current": {
+      "source": "program.exe, bloc ChangeComportDeja (texte exact). Les % max viennent de slide7dmaj.htm (douche/bain+économiseur = 6%, vaisselle = 10%) ; la conversion niveau -> fraction (0/0/0,5/1) est une hypothèse non retrouvée telle quelle.",
+      "instruction": "Il existe des habitudes quotidiennes qui permettent de réduire votre consommation d'eau et d'électricité. Pour chacune des propositions suivantes, veuillez indiquer si vous adoptez déjà le comportement proposé.",
+      "scale": ["Je le faisais déjà", "Je ne le fais pas", "De temps en temps", "Tout le temps"],
+      "scale_fraction": [0, 0, 0.5, 1],
+      "items": [
+        {"key": "habitude_eau1", "icon": "eau1.png", "max_pct": 10, "texte": "Je ne laisse pas couler l'eau pendant que je fais la vaisselle : je remplis le bac de rinçage, ou je ferme le robinet pendant le nettoyage des mains, le brossage des dents, le rasage."},
+        {"key": "habitude_eau2", "icon": "doubleeau.png", "max_pct": 6, "texte": "Je coupe l'eau de la douche pendant que je me savonne. Si je n'ai pas de douche, je décide de supprimer un bain par semaine."},
+        {"key": "habitude_eau3", "icon": "douche1.png", "max_pct": 0, "texte": "J'utilise un économiseur d'eau sur le pommeau de douche et sur les robinets."}
+      ]
+    },
+
+    "behavior_adopt": {
+      "source": "program.exe, bloc ChangeComportSuite (texte exact, % max retrouvés dans l'exe)",
+      "instruction": "À présent, pour chacune des propositions suivantes, veuillez indiquer jusqu'à quel point vous seriez prêt à adopter ces gestes et comportements économes (une seule réponse possible).",
+      "items": [
+        {"key": "adoption_eau1", "domaine": "electricite", "icon": "doubleelec.png", "texte": "Je décide de baisser de 2°C la température de chauffage de mes pièces, ou je dégivre le frigo et le congélateur et je nettoie la grille arrière.", "scale": [
+          {"label": "Rarement ou jamais", "max_pct": 4},
+          {"label": "De temps en temps", "max_pct": 8},
+          {"label": "Souvent", "max_pct": 11},
+          {"label": "Tout le temps", "max_pct": 14}
+        ]},
+        {"key": "adoption_eau2", "domaine": "electricite", "icon": "multiprises.png", "texte": "Je décide de ne pas laisser les appareils en veille et je les éteins dès que je ne les utilise pas.", "scale": [
+          {"label": "Rarement ou jamais", "max_pct": 6},
+          {"label": "De temps en temps", "max_pct": 12},
+          {"label": "Souvent", "max_pct": 18},
+          {"label": "Tout le temps", "max_pct": 22}
+        ]},
+        {"key": "adoption_eau3", "domaine": "electricite", "icon": "lampe1.png", "texte": "Je remplace mes ampoules par des ampoules à basse consommation.", "scale": [
+          {"label": "Un quart des ampoules ou moins", "max_pct": 3},
+          {"label": "La moitié des ampoules", "max_pct": 6},
+          {"label": "Trois quarts des ampoules", "max_pct": 9},
+          {"label": "Toutes les ampoules", "max_pct": 12}
+        ]}
+      ]
+    },
+
+    "recap_phase3": {
+      "source": "slide20d_temp.htm et program.exe, bloc EcoInfo (texte et mécanisme de prime exacts). La phrase 'instruction_couples' est un ajout instructeur (pas dans l'exe).",
+      "intro": "Sur la base du questionnaire, nous avons évalué votre consommation de référence à :",
+      "estimation_text": "À partir des déclarations faites sur votre capacité à adopter des comportements de consommation économes, nous pouvons estimer que votre consommation pourrait baisser dans les proportions suivantes :",
+      "instruction_couples": "Partant de cette situation, nous allons vous proposer des couples de tarifs. L'un des deux tarifs proposés est plus avantageux pour vous.",
+      "bonus_correct_eur": 1,
+      "bonus_incorrect_eur": 0,
+      "bonus_text_correct": "Tarif le plus avantageux",
+      "bonus_text_incorrect": "Tarif le moins avantageux",
+      "bonus_detail_correct": "Vous recevrez une prime en euros.",
+      "bonus_detail_incorrect": "Vous ne recevez pas de prime."
+    },
+
+    "preferences": {
+      "source": "program.exe, bloc QuestPrefEauElect (texte exact)",
+      "scale_5": ["Pas du tout d'accord", "2", "3", "4", "Tout à fait d'accord"],
+      "items": [
+        {"key": "pref1_1", "texte": "Lors de mes choix de tarifs, j'ai privilégié... la simplicité du tarif."},
+        {"key": "pref1_2", "texte": "Lors de mes choix de tarifs, j'ai privilégié... la prévisibilité de la facture."},
+        {"key": "pref1_3", "texte": "Lors de mes choix de tarifs, j'ai privilégié... le plus avantageux financièrement."},
+        {"key": "pref2", "texte": "Au quotidien, vous cherchez à réduire votre consommation d'électricité."},
+        {"key": "pref3", "texte": "Au quotidien, vous cherchez à réduire votre consommation d'eau."},
+        {"key": "pref4_1", "texte": "Quelle est votre motivation pour réduire votre consommation d'électricité ? Réduire votre facture."},
+        {"key": "pref4_2", "texte": "Quelle est votre motivation pour réduire votre consommation d'électricité ? Éviter le gaspillage."},
+        {"key": "pref4_3", "texte": "Quelle est votre motivation pour réduire votre consommation d'électricité ? Participer à la lutte contre le réchauffement climatique."},
+        {"key": "pref5_1", "texte": "Quelle est votre motivation pour réduire votre consommation d'eau ? Réduire votre facture."},
+        {"key": "pref5_2", "texte": "Quelle est votre motivation pour réduire votre consommation d'eau ? Éviter le gaspillage."},
+        {"key": "pref5_3", "texte": "Quelle est votre motivation pour réduire votre consommation d'eau ? Participer à la lutte contre la sécheresse."},
+        {"key": "pref6", "texte": "Vous êtes prêt à accepter une baisse de confort ou un changement d'habitude pour réduire votre consommation d'eau."},
+        {"key": "pref7", "texte": "Vous êtes prêt à accepter une baisse de confort ou un changement d'habitude pour réduire votre consommation d'électricité."},
+        {"key": "pref8", "texte": "Votre effort doit se traduire par une économie sur votre facture."}
+      ]
+    },
+
+    "demographics": {
+      "source": "program.exe, bloc QuestSocioEco (texte exact)",
+      "questions": [
+        {"key": "sexe", "texte": "Êtes-vous ?", "type": "radio", "options": ["Homme", "Femme"]},
+        {"key": "age", "texte": "Quel âge avez-vous ?", "type": "int"},
+        {"key": "langue", "texte": "Quelle est votre langue maternelle ?", "type": "radio", "options": ["Français", "Autre"]},
+        {"key": "age_francais", "texte": "Depuis quel âge parlez-vous français ?", "type": "int", "condition": "langue=Autre"},
+        {"key": "code_postal", "texte": "Quel est le code postal de votre résidence principale ?", "type": "text"},
+        {"key": "etudiant", "texte": "Êtes-vous étudiant ?", "type": "radio", "options": ["Oui", "Non"]},
+        {"key": "discipline", "texte": "Dans quelle discipline ?", "type": "select", "options": ["Science économique", "Gestion", "AES", "Droit", "Sociologie", "Géographie", "Histoire", "Lettres", "Philosophie", "Information et communication", "Mathématiques", "Biologie", "Physique", "Autre"], "condition": "etudiant=Oui"},
+        {"key": "niveau_etudes", "texte": "À quel niveau êtes-vous inscrit actuellement ?", "type": "select", "options": ["Licence 1", "Licence 2", "Licence 3", "Master 1", "Master 2", "Doctorat", "Autre"], "condition": "etudiant=Oui"},
+        {"key": "situation_prof", "texte": "Quelle est votre situation professionnelle actuelle ?", "type": "select", "options": ["Emploi (salarié ou à votre propre compte)", "Apprentissage sous contrat ou stage rémunéré", "Étudiant", "Étudiant-Salarié", "Chômage", "Retraité", "Homme ou femme au foyer", "Autre situation"]}
+      ]
+    },
+
+    "crt_items": {
+      "source": "program.exe, bloc CRT_visual (texte et montants exacts)",
+      "instruction": "Vous trouverez ci-dessous plusieurs problèmes dont la difficulté varie. Essayez de répondre à autant de questions que possible.",
+      "items": [
+        {"key": "raquette", "titre": "Question 1 (sur la balle et la raquette)", "texte": "Une raquette et une balle valent 1,10€ au total. La raquette vaut 1,00€ de plus que la balle. Combien coûte la balle ?", "reponse_correcte": 0.05, "unite": "€"},
+        {"key": "machine", "titre": "Question 2 (sur la machine qui fabrique les articles)", "texte": "Si 5 machines mettent 5 minutes pour fabriquer 5 articles, combien de temps faut-il à 100 machines pour fabriquer 100 articles ?", "reponse_correcte": 5, "unite": "minute(s)"},
+        {"key": "lac", "titre": "Question 3 (sur le lac)", "texte": "Sur un lac se trouve une parcelle de nénuphars. Chaque jour, la parcelle double de volume. S'il faut 48 jours pour que la parcelle couvre l'intégralité du lac, combien de temps faut-il pour que la parcelle recouvre la moitié du lac ?", "reponse_correcte": 47, "unite": "jour(s)"}
+      ],
+      "check_instruction": "Avez-vous déjà vu l'une des trois questions précédentes dans le passé ? (S'il vous plaît, soyez honnête et indiquez sur la liste ci-dessous tous ceux que vous avez vus.)"
+    },
+
+    "lottery_task": {
+      "source": "program.exe, bloc Lots50_50 / slide0008.htm (texte et gains exacts)",
+      "intro": "Vous devez choisir une loterie parmi les 6 loteries proposées. Chaque loterie a deux résultats possibles qui ont autant de chance d'être tirés au sort (comme dans un jeu de pile ou face). Pour la loterie que vous avez choisie, un tirage au sort sera réalisé. Le gain obtenu sera ajouté à votre gratification pour cette séance.",
+      "example": "Par exemple : supposons que vous avez choisi la loterie rapportant 1€ avec une chance sur deux et 25€ avec une chance sur deux. Si le tirage au sort tombe sur 1€ vous aurez gagné 1€. Si le tirage au sort tombe sur 25€ vous aurez gagné 25€.",
+      "options": [
+        {"low": -1, "high": 27}, {"low": 9, "high": 9}, {"low": 7, "high": 13},
+        {"low": 5, "high": 17}, {"low": 3, "high": 21}, {"low": 1, "high": 25}
+      ]
+    },
+
+    "final_gain": {
+      "source": "program.exe, bloc FinalGain (texte exact)",
+      "base_gain_eur": 5,
+      "tariff_text": "Vous avez choisi le tarif le plus avantageux dans {n_correct} sur {n_total}. Votre prime est donc égale à {bonus} €.",
+      "lottery_text": "Au moment du choix des loteries, vous avez sélectionné celle correspondant aux gains {low}€ ou {high}€. En conséquence, après tirage aléatoire, vous obtenez : {gain}€.",
+      "base_text": "Votre gain de base était de {base}€.",
+      "final_text": "Votre gain final est de {total}€. Ce gain sera arrondi aux 50 centimes supérieurs. Vous recevrez donc {rounded}€.",
+      "thanks": "Merci de votre participation !"
+    }
+  },
+
+  "en": {
+    "welcome": {
+      "source": "Working translation of slide25d.htm (Intro block)",
+      "text": "Thank you for agreeing to take part in this study. This survey is conducted by researchers from a public university laboratory (Sorbonne and Paris School of Economics) whose research theme is water and electricity pricing. Feel free to call on the assistants present in the room if you have any difficulty understanding anything during the session. Please do not communicate with other participants in the room during the session, so that we get your own personal opinion. This session should last about 1 hour. You will receive your payment for participating at the end of the session."
+    },
+
+    "eligibility": {
+      "source": "Working translation of program.exe, QuestSelectEchant block",
+      "questions": [
+        {"key": "locataire_proprietaire", "texte": "Are you personally a tenant or an owner of your home?", "options": ["Tenant", "Owner"]},
+        {"key": "appartement_maison", "texte": "Do you live in a house or an apartment?", "options": ["Apartment", "House"]}
+      ]
+    },
+
+    "consumption_survey": {
+      "source": "Working translation of program.exe, ConsoInfo block",
+      "note": "The exact formula converting these answers into litres/kWh is compiled code and could not be recovered. The estimate (see consumption_logic.py) is a transparent approximation — adjust as needed.",
+      "eau_questions": [
+        {"key": "nPersons", "texte": "Number of people in your household", "type": "int"},
+        {"key": "nU_LVAnc", "texte": "Number of uses per week of an old dishwasher", "type": "int"},
+        {"key": "nU_LVEco", "texte": "Number of uses per week of a recent eco dishwasher", "type": "int"},
+        {"key": "nU_LVMain", "texte": "Number of hand dish-washing sessions per week", "type": "int"},
+        {"key": "nU_LLAnc", "texte": "Number of uses per week of an old washing machine", "type": "int"},
+        {"key": "nU_LLEco", "texte": "Number of uses per week of a recent eco washing machine", "type": "int"},
+        {"key": "nU_ChEauSt", "texte": "Average uses of a standard toilet flush per day and per person", "type": "int"},
+        {"key": "nU_ChEauDo", "texte": "Average uses of a dual-flush toilet (picture alongside) per day and per person", "type": "int", "icon": "doublechasse.png"},
+        {"key": "nU_DoucheSm", "texte": "Average showers per week (for the household)", "type": "int"},
+        {"key": "nU_BainSm", "texte": "Average baths per week (for the household)", "type": "int"},
+        {"key": "surf_jard", "texte": "Garden area (m²)", "type": "int"},
+        {"key": "nArosMois", "texte": "Number of times the garden is watered per month (March to October)", "type": "int"},
+        {"key": "nLaveVoitAn", "texte": "Number of times the car is washed per year with water from home", "type": "int"}
+      ],
+      "elec_questions": [
+        {"key": "surface", "texte": "What is the surface area of your home (m²)?", "type": "int"},
+        {"key": "ballon", "texte": "Do you have an electric water heater?", "type": "bool"},
+        {"key": "LVPresent", "texte": "Do you have a dishwasher?", "type": "bool"},
+        {"key": "AspPresent", "texte": "Do you have a vacuum cleaner?", "type": "bool"},
+        {"key": "chaufElect", "texte": "Is your heating electric?", "type": "bool"},
+        {"key": "nLCD", "texte": "Number of LCD televisions", "type": "int"},
+        {"key": "nPlasma", "texte": "Number of plasma televisions", "type": "int"},
+        {"key": "nOrdBureau", "texte": "Number of desktop computers", "type": "int"},
+        {"key": "nOrdPort", "texte": "Number of laptop computers", "type": "int"},
+        {"key": "CongelIndep", "texte": "Do you have a standalone freezer (separate from the fridge)?", "type": "bool"},
+        {"key": "LLPresent", "texte": "Do you have a washing machine?", "type": "bool"},
+        {"key": "SLPresent", "texte": "Do you have a tumble dryer?", "type": "bool"}
+      ],
+      "estimate_text": {
+        "intro": "Based on your previous answers, here is an estimate of your annual water and electricity consumption at home:",
+        "eau_annuelle": "Your annual water consumption: between {min} and {max}. The average annual consumption is {avg}.",
+        "elec_annuelle": "Your annual electricity consumption: between {min} and {max}. The average annual consumption is {avg}.",
+        "eau_mensuelle": "Your monthly water consumption: between {min} and {max}. The average monthly consumption is {avg}.",
+        "elec_mensuelle": "Your monthly electricity consumption: between {min} and {max}. The average monthly consumption is {avg}."
+      }
+    },
+
+    "tariffs": {
+      "electricite": {
+        "unit": "kWh",
+        "label": "Electricity",
+        "icon_variable": "icon_variable_elec.png",
+        "source": "slide1d_temp.htm / slide2d_temp.htm / slide3d_temp.htm (real values from a past session)",
+        "sans_abonnement": {"part_fixe": 0, "prix": 0.204},
+        "avec_abonnement": {"part_fixe": 96.50, "prix": 0.14},
+        "progressif": {"seuil": 1010, "prix_tranche1": 0.136, "prix_tranche2": 0.339}
+      },
+      "eau": {
+        "unit": "m³",
+        "label": "Water",
+        "icon_variable": "dollar_goute.gif",
+        "source": "slide4d_temp.htm / slide5d_temp.htm / slide6d_temp.htm (real values from a past session)",
+        "sans_abonnement": {"part_fixe": 0, "prix": 4.019},
+        "avec_abonnement": {"part_fixe": 22.64, "prix": 3.81},
+        "progressif": {"seuil": 72, "prix_tranche1": 2.679, "prix_tranche2": 6.35}
+      },
+      "comparisons": [
+        ["sans_abonnement", "avec_abonnement"],
+        ["avec_abonnement", "progressif"],
+        ["progressif", "sans_abonnement"]
+      ],
+      "plan_labels": {"sans_abonnement": "No-subscription tariff", "avec_abonnement": "Subscription tariff", "progressif": "Progressive tariff"},
+      "ui": {
+        "no_subscription": "No annual subscription.",
+        "annual_subscription": "Annual subscription: €{amount}.",
+        "constant_price": "Constant price per {unit}, whatever the volume purchased: €{price}/{unit}.",
+        "progressive_intro": "No annual subscription. The price per {unit} varies with the consumption tier:",
+        "tranche1": "1st tier — up to {seuil} {unit}: €{prix}/{unit}",
+        "tranche2": "2nd tier — beyond {seuil} {unit}: €{prix}/{unit}"
+      },
+      "progressive_example": {
+        "source": "Working translation of program.exe's exact reminder example",
+        "electricite": "A household has an annual consumption of 4790 kWh. The progressive tariff works as follows: 1st tier, any consumption below 3193 kWh is billed at €0.12/kWh; 2nd tier, any consumption above 3193 kWh is billed at €0.17/kWh. This household's bill will therefore be: €383.16 (3193 x 0.12) for the first 3193 kWh consumed, €271.49 (1597 x 0.17) for the next 1597 kWh consumed. The total will therefore be €654.65.",
+        "eau": "A household has an annual consumption of 61.469 m³. The progressive tariff works as follows: 1st tier, any consumption below 40.979 m³ is billed at €0.5/m³; 2nd tier, any consumption above 40.979 m³ is billed at €2/m³. This household's bill will therefore be: €20.48 (40.979 x 0.5) for the first 40.979 m³ consumed, €40.98 for the following m³ consumed. The total will therefore be €61.46."
+      },
+      "banner_hypothetical": "This choice will not affect your payment.",
+      "banner_incentivized": "Warning: the choices you make will affect your payment.",
+      "hypo_intro_title": "Hypothetical choices",
+      "hypo_intro_body": "You will now make a series of choices among three types of tariffs for water and electricity. These choices will not be taken into account when calculating your payment.",
+      "reminder_instructions": "You are choosing a tariff between two options. The \"no-subscription\" tariff charges every unit consumed at the same price. The \"subscription\" tariff adds a fixed annual amount with a lower price per unit. The \"progressive\" tariff has no subscription but charges a higher price beyond a certain consumption threshold (2nd tier).",
+      "reminder_label_instructions": "Review the instructions",
+      "reminder_label_progressive": "Review the progressive-tariff example",
+      "reminder_label_consumption": "Review my average consumption",
+      "savings_reminder_label": "Reminder: what you could save"
+    },
+
+    "behavior_current": {
+      "source": "Working translation of program.exe, ChangeComportDeja block",
+      "instruction": "There are everyday habits that can reduce your water and electricity consumption. For each of the following, please indicate whether you already do it.",
+      "scale": ["I already did this", "I don't do this", "Sometimes", "Always"],
+      "scale_fraction": [0, 0, 0.5, 1],
+      "items": [
+        {"key": "habitude_eau1", "icon": "eau1.png", "max_pct": 10, "texte": "I don't let the water run while doing the dishes: I fill a basin for rinsing, or I turn off the tap while washing my hands, brushing my teeth, or shaving."},
+        {"key": "habitude_eau2", "icon": "doubleeau.png", "max_pct": 6, "texte": "I turn off the shower water while soaping up. If I don't have a shower, I cut down on baths by one per week."},
+        {"key": "habitude_eau3", "icon": "douche1.png", "max_pct": 0, "texte": "I use a water-saving device on my showerhead and taps."}
+      ]
+    },
+
+    "behavior_adopt": {
+      "source": "Working translation of program.exe, ChangeComportSuite block",
+      "instruction": "Now, for each of the following, please indicate how far you would be willing to adopt these energy-saving actions (choose one answer only).",
+      "items": [
+        {"key": "adoption_eau1", "domaine": "electricite", "icon": "doubleelec.png", "texte": "I turn my heating down by 2°C, or I defrost my fridge/freezer and clean its back grille.", "scale": [
+          {"label": "Rarely or never", "max_pct": 4},
+          {"label": "Sometimes", "max_pct": 8},
+          {"label": "Often", "max_pct": 11},
+          {"label": "Always", "max_pct": 14}
+        ]},
+        {"key": "adoption_eau2", "domaine": "electricite", "icon": "multiprises.png", "texte": "I decide not to leave appliances on standby and switch them off when not in use.", "scale": [
+          {"label": "Rarely or never", "max_pct": 6},
+          {"label": "Sometimes", "max_pct": 12},
+          {"label": "Often", "max_pct": 18},
+          {"label": "Always", "max_pct": 22}
+        ]},
+        {"key": "adoption_eau3", "domaine": "electricite", "icon": "lampe1.png", "texte": "I replace my light bulbs with low-energy bulbs.", "scale": [
+          {"label": "A quarter of the bulbs or fewer", "max_pct": 3},
+          {"label": "Half of the bulbs", "max_pct": 6},
+          {"label": "Three quarters of the bulbs", "max_pct": 9},
+          {"label": "All the bulbs", "max_pct": 12}
+        ]}
+      ]
+    },
+
+    "recap_phase3": {
+      "source": "Working translation of slide20d_temp.htm and program.exe, EcoInfo block. 'instruction_couples' was supplied directly by the instructor.",
+      "intro": "Based on the questionnaire, we estimated your reference consumption at:",
+      "estimation_text": "Based on what you said about your ability to adopt energy-saving behaviours, we estimate that your consumption could drop by the following amounts:",
+      "instruction_couples": "Starting from this situation, we will now show you pairs of tariffs. One of the two tariffs offered is more advantageous for you.",
+      "bonus_correct_eur": 1,
+      "bonus_incorrect_eur": 0,
+      "bonus_text_correct": "Most advantageous tariff",
+      "bonus_text_incorrect": "Least advantageous tariff",
+      "bonus_detail_correct": "You will receive a bonus in euros.",
+      "bonus_detail_incorrect": "You will not receive a bonus."
+    },
+
+    "preferences": {
+      "source": "Working translation of program.exe, QuestPrefEauElect block",
+      "scale_5": ["Not at all agree", "2", "3", "4", "Fully agree"],
+      "items": [
+        {"key": "pref1_1", "texte": "When making my tariff choices, I favoured... the simplicity of the tariff."},
+        {"key": "pref1_2", "texte": "When making my tariff choices, I favoured... the predictability of the bill."},
+        {"key": "pref1_3", "texte": "When making my tariff choices, I favoured... the most financially advantageous option."},
+        {"key": "pref2", "texte": "In everyday life, you try to reduce your electricity consumption."},
+        {"key": "pref3", "texte": "In everyday life, you try to reduce your water consumption."},
+        {"key": "pref4_1", "texte": "What is your motivation for reducing your electricity consumption? Lowering your bill."},
+        {"key": "pref4_2", "texte": "What is your motivation for reducing your electricity consumption? Avoiding waste."},
+        {"key": "pref4_3", "texte": "What is your motivation for reducing your electricity consumption? Helping fight climate change."},
+        {"key": "pref5_1", "texte": "What is your motivation for reducing your water consumption? Lowering your bill."},
+        {"key": "pref5_2", "texte": "What is your motivation for reducing your water consumption? Avoiding waste."},
+        {"key": "pref5_3", "texte": "What is your motivation for reducing your water consumption? Helping fight drought."},
+        {"key": "pref6", "texte": "You are willing to accept less comfort or a change of habit to reduce your water consumption."},
+        {"key": "pref7", "texte": "You are willing to accept less comfort or a change of habit to reduce your electricity consumption."},
+        {"key": "pref8", "texte": "Your effort should translate into savings on your bill."}
+      ]
+    },
+
+    "demographics": {
+      "source": "Working translation of program.exe, QuestSocioEco block",
+      "questions": [
+        {"key": "sexe", "texte": "Are you:", "type": "radio", "options": ["Male", "Female"]},
+        {"key": "age", "texte": "How old are you?", "type": "int"},
+        {"key": "langue", "texte": "What is your native language?", "type": "radio", "options": ["English", "Other"]},
+        {"key": "age_francais", "texte": "Since what age have you spoken English?", "type": "int", "condition": "langue=Other"},
+        {"key": "code_postal", "texte": "What is the postal code of your main residence?", "type": "text"},
+        {"key": "etudiant", "texte": "Are you a student?", "type": "radio", "options": ["Yes", "No"]},
+        {"key": "discipline", "texte": "In which field?", "type": "select", "options": ["Economics", "Management", "Public Administration (AES)", "Law", "Sociology", "Geography", "History", "Literature", "Philosophy", "Information & Communication", "Mathematics", "Biology", "Physics", "Other"], "condition": "etudiant=Yes"},
+        {"key": "niveau_etudes", "texte": "What level are you currently enrolled at?", "type": "select", "options": ["Bachelor 1", "Bachelor 2", "Bachelor 3", "Master 1", "Master 2", "PhD", "Other"], "condition": "etudiant=Yes"},
+        {"key": "situation_prof", "texte": "What is your current occupational status?", "type": "select", "options": ["Employed (salaried or self-employed)", "Apprenticeship or paid internship", "Student", "Working student", "Unemployed", "Retired", "Homemaker", "Other situation"]}
+      ]
+    },
+
+    "crt_items": {
+      "source": "Working translation of program.exe, CRT_visual block (exact amounts)",
+      "instruction": "Below you will find several problems of varying difficulty. Try to answer as many questions as you can.",
+      "items": [
+        {"key": "raquette", "titre": "Question 1 (bat and ball)", "texte": "A bat and a ball cost $1.10 in total. The bat costs $1.00 more than the ball. How much does the ball cost?", "reponse_correcte": 0.05, "unite": "$"},
+        {"key": "machine", "titre": "Question 2 (machines making widgets)", "texte": "If it takes 5 machines 5 minutes to make 5 widgets, how long would it take 100 machines to make 100 widgets?", "reponse_correcte": 5, "unite": "minute(s)"},
+        {"key": "lac", "titre": "Question 3 (the lake)", "texte": "In a lake, there is a patch of lily pads. Every day, the patch doubles in size. If it takes 48 days for the patch to cover the entire lake, how long would it take for the patch to cover half of the lake?", "reponse_correcte": 47, "unite": "day(s)"}
+      ],
+      "check_instruction": "Have you already seen any of the three previous questions before? (Please be honest and indicate below any you have seen.)"
+    },
+
+    "lottery_task": {
+      "source": "Working translation of program.exe, Lots50_50 block / slide0008.htm (exact payoffs)",
+      "intro": "You must choose one lottery among the 6 lotteries offered. Each lottery has two possible outcomes with an equal chance of occurring (like a coin flip). For the lottery you choose, a random draw will be carried out. The payoff obtained will be added to your payment for this session.",
+      "example": "For example: suppose you chose the lottery paying €1 with a 50% chance and €25 with a 50% chance. If the draw lands on €1 you will have won €1. If the draw lands on €25 you will have won €25.",
+      "options": [
+        {"low": -1, "high": 27}, {"low": 9, "high": 9}, {"low": 7, "high": 13},
+        {"low": 5, "high": 17}, {"low": 3, "high": 21}, {"low": 1, "high": 25}
+      ]
+    },
+
+    "final_gain": {
+      "source": "Working translation of program.exe, FinalGain block",
+      "base_gain_eur": 5,
+      "tariff_text": "You chose the most advantageous tariff in {n_correct} out of {n_total} cases. Your bonus is therefore equal to €{bonus}.",
+      "lottery_text": "When choosing your lottery, you selected the one corresponding to payoffs of €{low} or €{high}. Following the random draw, you obtain: €{gain}.",
+      "base_text": "Your base payment was €{base}.",
+      "final_text": "Your final payment is €{total}. This amount is rounded up to the nearest 50 cents. You will therefore receive €{rounded}.",
+      "thanks": "Thank you for your participation!"
+    }
+  }
+}
